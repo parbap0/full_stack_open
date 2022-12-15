@@ -1,0 +1,17 @@
+title 0.5
+
+Browser->Server:HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+Server->Browser: returns HTML code
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server->Browser: returns css
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server->Browser: returns js
+
+note over Browser:
+js requests JSON from server
+end note
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Server-->Browser: returns JSON data
+
+
