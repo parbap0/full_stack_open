@@ -9,7 +9,7 @@ const App = () => {
   const Header = (props) => {
     return (
       <div>
-        <p>{props.courseName}</p>
+        <h1>{props.courseName}</h1>
       </div>
     );
   };
