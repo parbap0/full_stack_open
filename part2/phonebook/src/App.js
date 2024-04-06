@@ -36,6 +36,7 @@ const App = () => {
   };
 
   const deletePerson = id =>{
+    if(window.confirm("Delete this contact?")){
     personService.deletePerson(id)
     .then(response => {
       console.log(`Deleted post with ID ${id}`);
@@ -45,7 +46,7 @@ const App = () => {
     })
     .catch(error => {
       console.error(error);
-    });
+    });}
   }
 
   return (

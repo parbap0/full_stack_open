@@ -8,17 +8,44 @@ const Form = ({ persons, setPersons }) => {
 
   const addPerson = (e) => {
     e.preventDefault();
-    const personsArray = persons.map((e) => e.name);
+    // const personsArray = persons.map((e) => e.name);
     const personObject = {
       name: newName,
       number: newNumber,
     };
 
-    personsArray.includes(`${personObject.name}`)
-      ? alert(`${newName} is already added to phonebook`)
-      : personService.create(personObject).then(response =>{
+    const existingName = persons.filter(
+      (person) => person.name === newName
+    );
+
+    if (existingName.length === 0) {
+      personService.create(personObject).then((response) => {
         setPersons(persons.concat(response.data));
-      })
+        
+      });
+    } else {
+      if (
+        window.confirm(
+          `${personObject.name} is already in the phonebook, replace the old contact number with a new one?`
+        )
+      ) {
+        personService
+          .update(existingName[0].id, personObject)
+          .then((response) => {
+            const updatedPersons = persons.map((person) =>
+              person.id !== response.data.id ? person : response.data
+            );
+            setPersons(updatedPersons);
+            
+          });
+      }
+    }
+
+    // personsArray.includes(`${personObject.name}`)
+    //   ? alert(`${newName} is already added to phonebook`)
+    //   : personService.create(personObject).then(response =>{
+    //     setPersons(persons.concat(response.data));
+    //   })
       
       
     setNewName("");
